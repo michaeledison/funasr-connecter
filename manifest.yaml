@@ -1,0 +1,36 @@
+version: 0.0.1
+type: plugin
+author: michael_edison
+name: funasr-connecter
+label:
+  en_US: funasr-connecter
+  ja_JP: funasr-connecter
+  zh_Hans: funasr-connecter
+  pt_BR: funasr-connecter
+description:
+  en_US: help dify to connect to funasr
+  ja_JP: help dify to connect to funasr
+  zh_Hans: 连接到funasr websocket服务的工具
+  pt_BR: help dify to connect to funasr
+icon: icon.svg
+resource:
+  memory: 268435456
+  permission:
+    tool:
+      enabled: true
+plugins:
+  tools:
+    - provider/funasr-connecter.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+  minimum_dify_version: 0.0.1
+created_at: 2025-07-11T16:46:20.318065039+08:00
+privacy: PRIVACY.md
+verified: false
