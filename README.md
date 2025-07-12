@@ -29,3 +29,7 @@ You need to configure the following parameters.
 #### Chatflow / Workflow applications
 
 Both Chatflow and Workflow applications support adding a funasr-connecter tool node.
+
+## Issues
+
+Please report any issues to the [GitHub repository](https://github.com/michaeledison/funasr-connecter/issues).
