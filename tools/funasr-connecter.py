@@ -4,7 +4,6 @@ from typing import Any
 from dify_plugin import Tool
 from dify_plugin.entities.tool import ToolInvokeMessage
 from dify_plugin.file.file import File
-# 导入 logging 和自定义处理器
 import logging
 from dify_plugin.config.logger_format import plugin_logger_handler
 
@@ -17,7 +16,6 @@ import time
 import io
 import wave
 
-# 使用自定义处理器设置日志
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(plugin_logger_handler)
@@ -25,7 +23,6 @@ logger.addHandler(plugin_logger_handler)
 class FunasrConnecterTool(Tool):
     def _invoke(self, tool_parameters: dict[str, Any]) -> Generator[ToolInvokeMessage]:
 
-        # 提取参数
         host = tool_parameters.get("host", "127.0.0.1")
         port = tool_parameters.get("port", 10095)
         audio_in = tool_parameters.get("audio_in", None)
@@ -36,7 +33,6 @@ class FunasrConnecterTool(Tool):
         hotword = tool_parameters.get("hotword", "")
         output_dir = tool_parameters.get("output_dir", None)
 
-        # 转换 chunk_size 为列表
         if isinstance(chunk_size, str):
             chunk_size = [int(x) for x in chunk_size.split(",")]
 
@@ -51,7 +47,6 @@ class FunasrConnecterTool(Tool):
 
     def record_from_scp(self,host, port, audio_in, mode, chunk_size, use_itn, ssl_enable, hotword):
         global voices
-        # 构建 WebSocket URI
         uri = f"{'wss' if ssl_enable else 'ws'}://{host}:{port}"
         is_finished = False
         chunk_interval = 10
@@ -79,7 +74,6 @@ class FunasrConnecterTool(Tool):
                     
                 wav_name = audio_file.filename
 
-                    # 构建热词
                 hotword_msg = ""
                 if hotword.strip():
                     try:
@@ -92,7 +86,6 @@ class FunasrConnecterTool(Tool):
                 chunk_num = (len(audio_bytes) - 1) // stride + 1
                 # print(stride)
 
-                    # 创建 WebSocket 连接
                 sslopt = {"cert_reqs": pyssl.CERT_NONE} if ssl_enable else {}
                 ws = websocket.create_connection(uri, sslopt=sslopt)
 
@@ -127,7 +120,6 @@ class FunasrConnecterTool(Tool):
         
                 if mode=="offline":
                         time.sleep(1)
-                # 接收识别结果
                 result_received = False
                 while not result_received:
                     try:
